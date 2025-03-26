@@ -1,19 +1,19 @@
 package com.att.tdp.popcorn_palace.movie;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Movie {
 
-    private @Id
-    @GeneratedValue Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generated ID
+    private Long id;
+    @Column(nullable = false, unique = true)
     private String title;
     private String genre;
     private Integer duration;
     private Float rating;
-    private Integer release_year;
+    private Integer releaseYear;
 
     public Movie() {}
 
@@ -22,7 +22,7 @@ public class Movie {
         this.duration = duration;
         this.genre = genre;
         this.rating = rating;
-        this.release_year = release_year;
+        this.releaseYear = release_year;
     }
 
     @Override
@@ -32,13 +32,12 @@ public class Movie {
                 ", genre='" + genre + '\'' +
                 ", duration=" + duration +
                 ", rating=" + rating +
-                ", release_year=" + release_year +
+                ", releaseYear=" + releaseYear +
                 '}';
     }
 
-    public Integer getId() {
-        return id;
-    }
+    // Getters and Setters
+    public Long getId() { return id; }
 
     public String getTitle() {
         return title;
@@ -56,12 +55,8 @@ public class Movie {
         return rating;
     }
 
-    public Integer getRelease_year() {
-        return release_year;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public Integer getReleaseYear() {
+        return releaseYear;
     }
 
     public void setTitle(String title) {
@@ -80,7 +75,7 @@ public class Movie {
         this.rating = rating;
     }
 
-    public void setRelease_year(Integer release_year) {
-        this.release_year = release_year;
+    public void setReleaseYear(Integer releaseYear) {
+        this.releaseYear = releaseYear;
     }
 }
