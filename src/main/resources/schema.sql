@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS movie (
-    title VARCHAR(255),
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) UNIQUE,
     genre VARCHAR(100),
     duration INTEGER,
-    rating FLOAT,
+    rating NUMERIC(3,1),
     releaseYear INTEGER
 );

@@ -1,46 +1,36 @@
 package com.att.tdp.popcorn_palace.movie;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/movies")
 public class MovieController {
 
-    private final MovieRepository repository;
+    private final MovieService movieService;
 
-    public MovieController(MovieRepository repository) {
-        this.repository = repository;
+    public MovieController(MovieService movieService) {
+        this.movieService = movieService;
     }
 
-    @GetMapping("/movies/all")
+    @GetMapping("/all")
     public List<Movie> all() {
-        return repository.findAll();
+        return movieService.getAllMovies();
     }
 
-    @PostMapping("/movies")
-    public Movie newEmployee(@RequestBody Movie newMovie) {
-        return repository.save(newMovie);
+    @PostMapping
+    public Movie newMovie(@RequestBody Movie newMovie) {
+        return movieService.addMovie(newMovie);
     }
 
-    @PostMapping("/movies/update/{movieTitle}")
+    @PostMapping("/update/{movieTitle}")
     public Movie replaceMovie(@RequestBody Movie newMovie, @PathVariable String movieTitle) {
-        System.out.println(movieTitle);
-        return repository.findByTitle(movieTitle)
-                .map(movie -> {
-                    movie.setGenre(newMovie.getGenre());
-                    movie.setDuration(newMovie.getDuration());
-                    movie.setRating(newMovie.getRating());
-                    movie.setReleaseYear(newMovie.getReleaseYear());
-                    return repository.save(movie);
-                })
-                .orElseGet(() -> repository.save(newMovie));  // Save newMovie if not found
+        return movieService.updateMovie(movieTitle, newMovie);
     }
 
-    @DeleteMapping("/movies/{movieTitle}")
-    @Transactional
+    @DeleteMapping("/{movieTitle}")
     public void deleteMovie(@PathVariable String movieTitle) {
-        repository.deleteByTitle(movieTitle);
+        movieService.deleteMovie(movieTitle);
     }
 }
