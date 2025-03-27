@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS movie (
     genre VARCHAR(100),
     duration INTEGER,
     rating NUMERIC(3,1),
-    releaseYear INTEGER
+    release_year INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS showtime (
@@ -17,5 +17,13 @@ CREATE TABLE IF NOT EXISTS showtime (
     CONSTRAINT fk_movie FOREIGN KEY (movie_id) REFERENCES movie(id) ON DELETE CASCADE
 );
 
-ALTER TABLE showtime
-ADD CONSTRAINT unique_showtime UNIQUE (movie_id, start_time, theater);
+CREATE UNIQUE INDEX IF NOT EXISTS unique_showtime_index
+ON showtime (movie_id, start_time, theater);
+
+CREATE TABLE IF NOT EXISTS booking (
+    booking_id UUID PRIMARY KEY,
+    showtime_id INTEGER NOT NULL,
+    seat_number INT NOT NULL,
+    user_id UUID NOT NULL,
+    CONSTRAINT fk_showtime FOREIGN KEY (showtime_id) REFERENCES showtime (id) ON DELETE CASCADE
+);

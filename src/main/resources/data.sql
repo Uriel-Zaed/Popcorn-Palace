@@ -1,4 +1,4 @@
-INSERT INTO movie (title, genre, duration, rating, releaseYear)
+INSERT INTO movie (title, genre, duration, rating, release_year)
 VALUES
     ('Inception', 'Sci-Fi', 148, 8.8, 2010),
     ('The Dark Knight', 'Action', 152, 9.0, 2008),
@@ -25,3 +25,8 @@ VALUES
     (9, 'Cineplex 3', '2025-02-14 18:00:00', '2025-02-14 20:30:00', 15.00),
     (10, 'Cineplex 4', '2025-02-14 19:00:00', '2025-02-14 21:30:00', 16.50)
 ON CONFLICT (movie_id, start_time, theater) DO NOTHING;
+
+INSERT INTO booking (booking_id, showtime_id, seat_number, user_id) VALUES
+ ('d1a6423b-4469-4b00-8c5f-e3cfc42eacae', 1, 15, '84438967-f68f-4fa0-b620-0f08217e76af'),
+ ('bb6f9e4a-f9f7-4f3e-bc7f-0f5b7c66f28d', 2, 10, 'f19a62b9-9c32-4666-8b27-dbd8727d91f3')
+ON CONFLICT (booking_id) DO NOTHING;
