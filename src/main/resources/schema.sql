@@ -14,16 +14,16 @@ CREATE TABLE IF NOT EXISTS showtime (
     start_time TIMESTAMP NOT NULL,
     end_time TIMESTAMP NOT NULL,
     price NUMERIC(5,2) NOT NULL,
-    CONSTRAINT fk_movie FOREIGN KEY (movie_id) REFERENCES movie(id) ON DELETE CASCADE
+    CONSTRAINT fk_movie FOREIGN KEY (movie_id) REFERENCES movie(id) ON DELETE CASCADE,
+    CONSTRAINT unique_showtime_index UNIQUE (start_time, theater)
 );
-
-CREATE UNIQUE INDEX IF NOT EXISTS unique_showtime_index
-ON showtime (movie_id, start_time, theater);
 
 CREATE TABLE IF NOT EXISTS booking (
     booking_id UUID PRIMARY KEY,
     showtime_id INTEGER NOT NULL,
     seat_number INT NOT NULL,
     user_id UUID NOT NULL,
-    CONSTRAINT fk_showtime FOREIGN KEY (showtime_id) REFERENCES showtime (id) ON DELETE CASCADE
+    is_active BOOLEAN DEFAULT TRUE,
+    CONSTRAINT fk_showtime FOREIGN KEY (showtime_id) REFERENCES showtime (id) ON DELETE CASCADE,
+    CONSTRAINT unique_showtime_seat UNIQUE (showtime_id, seat_number)
 );

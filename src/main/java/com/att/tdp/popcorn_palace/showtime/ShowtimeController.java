@@ -1,6 +1,6 @@
 package com.att.tdp.popcorn_palace.showtime;
 
-import org.springframework.http.ResponseEntity;
+import com.att.tdp.popcorn_palace.exception.ShowtimesOverlappingException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -21,30 +21,24 @@ public class ShowtimeController {
     }
 
     @PostMapping
-    public ResponseEntity<Showtime> addShowtime(@RequestBody Showtime showtime) {
+    public Showtime addShowtime(@RequestBody Showtime showtime) {
         // Check for overlapping showtimes before saving
-        if (showtimeService.hasOverlappingShowtimes(showtime.getMovieId(), showtime.getStartTime(), showtime.getEndTime(), showtime.getTheater())) {
-            return ResponseEntity.badRequest().body(null); // Return an error if there are overlapping showtimes
+        if (showtimeService.hasOverlappingShowtimes(showtime.getStartTime(), showtime.getEndTime(), showtime.getTheater())) {
+            throw new ShowtimesOverlappingException("Overlapping showtimes"); // Return an error if there are overlapping showtimes
         }
-        Showtime createdShowtime = showtimeService.addShowtime(showtime);
-        return ResponseEntity.ok(createdShowtime);
+        return showtimeService.addShowtime(showtime);
     }
 
     @PostMapping("/update/{showtimeId}")
-    public ResponseEntity<Showtime> updateShowtime(@PathVariable Long showtimeId, @RequestBody Showtime updatedShowtime) {
-        if (showtimeService.hasOverlappingShowtimes(updatedShowtime.getMovieId(), updatedShowtime.getStartTime(), updatedShowtime.getEndTime(), updatedShowtime.getTheater())) {
-            return ResponseEntity.badRequest().body(null); // Return an error if there are overlapping showtimes
+    public Showtime updateShowtime(@PathVariable Long showtimeId, @RequestBody Showtime updatedShowtime) {
+        if (showtimeService.hasOverlappingShowtimes(updatedShowtime.getStartTime(), updatedShowtime.getEndTime(), updatedShowtime.getTheater())) {
+            throw new ShowtimesOverlappingException("Overlapping showtimes");  // Return an error if there are overlapping showtimes
         }
-        Showtime updated = showtimeService.updateShowtime(showtimeId, updatedShowtime);
-        if (updated == null) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(updated);
+        return showtimeService.updateShowtime(showtimeId, updatedShowtime);
     }
 
     @DeleteMapping("/{showtimeId}")
-    public ResponseEntity<Void> deleteShowtime(@PathVariable Long showtimeId) {
+    public void deleteShowtime(@PathVariable Long showtimeId) {
         showtimeService.deleteShowtime(showtimeId);
-        return ResponseEntity.noContent().build();
     }
 }

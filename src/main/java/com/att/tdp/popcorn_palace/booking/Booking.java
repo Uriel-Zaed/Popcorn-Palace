@@ -1,39 +1,52 @@
 package com.att.tdp.popcorn_palace.booking;
 
-
 import jakarta.persistence.*;
-
 import java.util.UUID;
 
 @Entity
+@Table(name = "booking")
 public class Booking {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID bookingId;
 
-    @JoinColumn(name = "showtime_id", referencedColumnName = "id")
-    private Long showtimeId;
-
-    private int seatNumber;
+    @Column(nullable = false)
     private UUID userId;
 
-    // Constructors, Getters, Setters
+    @Column(nullable = false)
+    private Long showtimeId;
+
+    @Column(nullable = false)
+    private Integer seatNumber;
+
+    @Column(nullable = false)
+    private boolean isActive = true;
+
+    // Constructors
     public Booking() {}
 
-    public Booking(Long showtimeId, int seatNumber, UUID userId) {
+    public Booking(UUID userId, Long showtimeId, Integer seatNumber) {
+        this.userId = userId;
         this.showtimeId = showtimeId;
         this.seatNumber = seatNumber;
-        this.userId = userId;
-        this.bookingId = UUID.randomUUID();
     }
 
+    // Getters and Setters
     public UUID getBookingId() {
         return bookingId;
     }
 
     public void setBookingId(UUID bookingId) {
         this.bookingId = bookingId;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
     public Long getShowtimeId() {
@@ -44,19 +57,19 @@ public class Booking {
         this.showtimeId = showtimeId;
     }
 
-    public int getSeatNumber() {
+    public Integer getSeatNumber() {
         return seatNumber;
     }
 
-    public void setSeatNumber(int seatNumber) {
+    public void setSeatNumber(Integer seatNumber) {
         this.seatNumber = seatNumber;
     }
 
-    public UUID getUserId() {
-        return userId;
+    public boolean isActive() {
+        return isActive;
     }
 
-    public void setUserId(UUID userId) {
-        this.userId = userId;
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

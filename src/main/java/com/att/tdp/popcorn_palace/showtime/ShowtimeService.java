@@ -46,7 +46,7 @@ public class ShowtimeService {
     }
 
     // Additional method to check if there are overlapping showtimes in the same theater
-    public boolean hasOverlappingShowtimes(Long movieId, LocalDateTime startTime, LocalDateTime endTime, String theater) {
+    public boolean hasOverlappingShowtimes(LocalDateTime startTime, LocalDateTime endTime, String theater) {
         List<Showtime> showtimes = showtimeRepository.findAll();
         for (Showtime showtime : showtimes) {
             if (showtime.getTheater().equals(theater)) {

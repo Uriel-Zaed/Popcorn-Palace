@@ -3,6 +3,7 @@ package com.att.tdp.popcorn_palace.movie;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "Movie")
 public class Movie {
 
     @Id
