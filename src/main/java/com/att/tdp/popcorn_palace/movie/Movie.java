@@ -13,6 +13,8 @@ public class Movie {
     private String genre;
     private Integer duration;
     private Float rating;
+
+    @Column(name = "release_year")
     private Integer releaseYear;
 
     public Movie() {}
