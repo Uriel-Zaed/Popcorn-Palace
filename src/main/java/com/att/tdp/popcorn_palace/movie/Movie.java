@@ -3,14 +3,16 @@ package com.att.tdp.popcorn_palace.movie;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Movie")
+@Table(name = "Movies")
 public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generated ID
     private Long id;
+
     @Column(nullable = false, unique = true)
     private String title;
+
     private String genre;
     private Integer duration;
     private Float rating;
@@ -20,12 +22,12 @@ public class Movie {
 
     public Movie() {}
 
-    public Movie(String title, Integer duration, String genre, Float rating, Integer release_year) {
+    public Movie(String title, Integer duration, String genre, Float rating, Integer releaseYear) {
         this.title = title;
         this.duration = duration;
         this.genre = genre;
         this.rating = rating;
-        this.releaseYear = release_year;
+        this.releaseYear = releaseYear;
     }
 
     @Override

@@ -1,27 +1,29 @@
 package com.att.tdp.popcorn_palace.showtime;
 
-import com.att.tdp.popcorn_palace.movie.Movie;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Showtime")
+@Table(name = "Showtimes",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"start_time", "theater"}))
 public class Showtime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "start_time")
+    @Column(name = "start_time", nullable = false)
     private LocalDateTime startTime;  // Correct field name in your entity
 
-    @Column(name = "end_time")
+    @Column(name = "end_time", nullable = false)
     private LocalDateTime endTime;
 
-    @JoinColumn(name = "movie_id", referencedColumnName = "id")
+    @JoinColumn(name = "movie_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_movie"), nullable = false)
     private Long movieId;
 
+    @Column(nullable = false)
     private String theater;
+
     private Double price;
 
     public Showtime() {}

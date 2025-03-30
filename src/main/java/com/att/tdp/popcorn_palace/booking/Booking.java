@@ -4,10 +4,11 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "booking")
+@Table(name = "Bookings")
 public class Booking {
 
     @Id
+    @Column(nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID bookingId;
 
@@ -19,9 +20,6 @@ public class Booking {
 
     @Column(nullable = false)
     private Integer seatNumber;
-
-    @Column(nullable = false)
-    private boolean isActive = true;
 
     // Constructors
     public Booking() {}
@@ -63,13 +61,5 @@ public class Booking {
 
     public void setSeatNumber(Integer seatNumber) {
         this.seatNumber = seatNumber;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 }
