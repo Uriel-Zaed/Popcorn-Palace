@@ -20,9 +20,7 @@ INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES
 (6, 'Cineplex 6', '2025-02-14 15:00:00', '2025-02-14 17:30:00', 19.00),
 (7, 'Cineplex 1', '2025-02-14 16:00:00', '2025-02-14 18:30:00', 12.50),
 (8, 'Cineplex 2', '2025-02-14 17:00:00', '2025-02-14 19:30:00', 13.50),
-(9, 'Cineplex 3', '2025-02-14 18:00:00', '2025-02-14 20:30:00', 15.00),
-(10, 'Cineplex 4', '2025-02-14 19:00:00', '2025-02-14 21:30:00', 16.50)
-ON CONFLICT (start_time, theater) DO NOTHING;
+(9, 'Cineplex 3', '2025-02-14 18:00:00', '2025-02-14 20:30:00', 15.00),;
 
 INSERT INTO Bookings (booking_id, showtime_id, seat_number, user_id) VALUES
 ('d1a6423b-4469-4b00-8c5f-e3cfc42eacae', 1, 15, '84438967-f68f-4fa0-b620-0f08217e76af'),
