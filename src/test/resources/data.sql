@@ -11,15 +11,15 @@ INSERT INTO Movies (title, genre, duration, rating, release_year) VALUES ('Fight
 INSERT INTO Movies (title, genre, duration, rating, release_year) VALUES ('The Avengers', 'Action', 143, 8.0, 2012);
 
 -- Showtimes table inserts
-INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (1, 'Cineplex 1', '2025-02-14 10:00:00', '2025-02-14 12:30:00', 15.50);
-INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (2, 'Cineplex 2', '2025-02-14 11:00:00', '2025-02-14 13:30:00', 18.00);
-INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (3, 'Cineplex 3', '2025-02-14 12:00:00', '2025-02-14 14:30:00', 16.00);
-INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (4, 'Cineplex 4', '2025-02-14 13:00:00', '2025-02-14 15:30:00', 14.00);
-INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (5, 'Cineplex 5', '2025-02-14 14:00:00', '2025-02-14 16:30:00', 17.00);
-INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (6, 'Cineplex 6', '2025-02-14 15:00:00', '2025-02-14 17:30:00', 19.00);
-INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (7, 'Cineplex 1', '2025-02-14 16:00:00', '2025-02-14 18:30:00', 12.50);
-INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (8, 'Cineplex 2', '2025-02-14 17:00:00', '2025-02-14 19:30:00', 13.50);
-INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (9, 'Cineplex 3', '2025-02-14 18:00:00', '2025-02-14 20:30:00', 15.00);
+INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (1, 'Theater 1', '2025-02-14 10:00:00', '2025-02-14 12:30:00', 15.50);
+INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (2, 'Theater 2', '2025-02-14 11:00:00', '2025-02-14 13:30:00', 18.00);
+INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (3, 'Theater 3', '2025-02-14 12:00:00', '2025-02-14 14:30:00', 16.00);
+INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (4, 'Theater 4', '2025-02-14 13:00:00', '2025-02-14 15:30:00', 14.00);
+INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (5, 'Theater 5', '2025-02-14 14:00:00', '2025-02-14 16:30:00', 17.00);
+INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (6, 'Theater 6', '2025-02-14 15:00:00', '2025-02-14 17:30:00', 19.00);
+INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (7, 'Theater 1', '2025-02-14 16:00:00', '2025-02-14 18:30:00', 12.50);
+INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (8, 'Theater 2', '2025-02-14 17:00:00', '2025-02-14 19:30:00', 13.50);
+INSERT INTO Showtimes (movie_id, theater, start_time, end_time, price) VALUES (9, 'Theater 3', '2025-02-14 18:00:00', '2025-02-14 20:30:00', 15.00);
 
 -- Bookings table inserts
 INSERT INTO Bookings (booking_id, showtime_id, seat_number, user_id) VALUES ('d1a6423b-4469-4b00-8c5f-e3cfc42eacae', 1, 15, '84438967-f68f-4fa0-b620-0f08217e76af');

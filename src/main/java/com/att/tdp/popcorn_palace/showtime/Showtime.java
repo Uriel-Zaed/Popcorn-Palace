@@ -1,11 +1,16 @@
 package com.att.tdp.popcorn_palace.showtime;
 
+import com.att.tdp.popcorn_palace.movie.Movie;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Showtimes",
         uniqueConstraints = @UniqueConstraint(columnNames = {"start_time", "theater"}))
+@JsonPropertyOrder({"id", "movieId", "theater", "startTime", "endTime", "price"})
 public class Showtime {
 
     @Id
@@ -18,8 +23,10 @@ public class Showtime {
     @Column(name = "end_time", nullable = false)
     private LocalDateTime endTime;
 
+    @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "movie_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_movie"), nullable = false)
-    private Long movieId;
+    private Movie movie;
 
     @Column(nullable = false)
     private String theater;
@@ -28,8 +35,8 @@ public class Showtime {
 
     public Showtime() {}
 
-    public Showtime(Long movieId, String theater, LocalDateTime startTime, LocalDateTime endTime, Double price) {
-        this.movieId = movieId;
+    public Showtime(Movie movie, String theater, LocalDateTime startTime, LocalDateTime endTime, Double price) {
+        this.movie = movie;
         this.theater = theater;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -40,42 +47,38 @@ public class Showtime {
         return id;
     }
 
-    public Long getMovieId() {
-        return movieId;
+    public Movie getMovie() {
+        return movie;
     }
+    public void setMovie (Movie movie) { this.movie = movie; }
+
+    @JsonProperty("movieId")
+    public Long getMovieId() { return movie != null ? movie.getId() : null; }
 
     public String getTheater() {
         return theater;
+    }
+    public void setTheater(String theater) {
+        this.theater = theater;
     }
 
     public LocalDateTime getStartTime() {
         return startTime;
     }
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
 
     public LocalDateTime getEndTime() {
         return endTime;
+    }
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
     public Double getPrice() {
         return price;
     }
-
-    public void setMovieId(Long movieId) {
-        this.movieId = movieId;
-    }
-
-    public void setTheater(String theater) {
-        this.theater = theater;
-    }
-
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
     public void setPrice(Double price) {
         this.price = price;
     }

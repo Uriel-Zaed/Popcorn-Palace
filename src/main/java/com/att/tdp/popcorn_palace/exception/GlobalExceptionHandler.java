@@ -31,10 +31,10 @@ public class GlobalExceptionHandler {
         body.put("error", ex.getClass());
         body.put("message", ex.getMessage());
 
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
     @ExceptionHandler(ResourceAlreadyExistsException.class)
-    public ResponseEntity<Object> ResourceAlreadyExistsException(ResourceAlreadyExistsException ex) {
+    public ResponseEntity<Object> handleResourceAlreadyExistsException(ResourceAlreadyExistsException ex) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.CONFLICT.value());
@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<Object> ResourceNotFoundException(ResourceNotFoundException ex) {
+    public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("status", HttpStatus.NOT_FOUND.value());
