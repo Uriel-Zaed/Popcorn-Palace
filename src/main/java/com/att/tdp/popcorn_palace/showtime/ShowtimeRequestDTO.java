@@ -9,6 +9,16 @@ public class ShowtimeRequestDTO {
     private LocalDateTime endTime;
     private Double price;
 
+    public ShowtimeRequestDTO() { }
+
+    public ShowtimeRequestDTO(Long movieId, String theater, LocalDateTime startTime, LocalDateTime endTime, Double price) {
+        this.movieId = movieId;
+        this.theater = theater;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.price = price;
+    }
+
     public Long getMovieId() { return movieId; }
     public void setMovieId(Long movieId) { this.movieId = movieId; }
 

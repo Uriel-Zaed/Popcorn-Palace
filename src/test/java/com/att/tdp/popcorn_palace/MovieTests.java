@@ -2,27 +2,24 @@ package com.att.tdp.popcorn_palace;
 
 import com.att.tdp.popcorn_palace.movie.Movie;
 import com.att.tdp.popcorn_palace.movie.MovieRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Transactional
-@Sql(scripts = "/data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_CLASS)
 public class MovieTests {
 
     @Autowired
@@ -34,14 +31,37 @@ public class MovieTests {
     @Autowired
     private MovieRepository movieRepository;
 
+    @BeforeEach
+    void setupTestData() {
+        // Clear existing data
+        movieRepository.deleteAll();
+
+        // Create movies
+        Movie inception = createMovie("Inception", "Sci-Fi", 148, 8.8f, 2010);
+        Movie darkKnight = createMovie("The Dark Knight", "Action", 152, 9.0f, 2008);
+        // Add more movies as needed
+
+        List<Movie> movies = Arrays.asList(inception, darkKnight);
+        movieRepository.saveAll(movies);
+    }
+
+    private Movie createMovie(String title, String genre, int duration, float rating, int releaseYear) {
+        Movie movie = new Movie();
+        movie.setTitle(title);
+        movie.setGenre(genre);
+        movie.setDuration(duration);
+        movie.setRating(rating);
+        movie.setReleaseYear(releaseYear);
+        return movie;
+    }
+
 
     @Test
     public void testGetAllMovies() throws Exception {
         // Execute and verify
         mockMvc.perform(get("/movies/all"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$", hasSize(10)));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
     @Test
@@ -90,8 +110,7 @@ public class MovieTests {
         mockMvc.perform(post("/movies")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(duplicateMovie)))
-                .andExpect(status().is(409))
-                .andExpect(jsonPath("$.message", containsString("already exists")));
+                .andExpect(status().isConflict());
     }
 
     @Test

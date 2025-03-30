@@ -27,11 +27,17 @@ public class ShowtimeService {
 
     public Optional<Showtime> getShowtimeById(Long id) {
         logger.info("Getting showtime by id: {}", id);
-        return showtimeRepository.findById(id);
+        Optional<Showtime> showtime = showtimeRepository.findById(id);
+        if (showtime.isEmpty()) {
+            throw new ResourceNotFoundException("Showtime " + id + " not found");
+        }
+        return showtime;
     }
 
     @Transactional
     public Showtime addShowtime(ShowtimeRequestDTO requestDTO) {
+        validateShowtime(requestDTO);
+
         if (hasOverlappingShowtimes(requestDTO.getStartTime(), requestDTO.getEndTime(), requestDTO.getTheater())) {
             throw new ShowtimesOverlappingException("Overlapping showtime");  // Return an error if there are overlapping showtimes
         }
@@ -50,6 +56,8 @@ public class ShowtimeService {
     @Transactional
     public void updateShowtime(Long id, ShowtimeRequestDTO requestDTO) {
         logger.info("Updating the showtime id: {}", id);
+
+        validateShowtime(requestDTO);
 
         Optional<Showtime> existingShowtime = showtimeRepository.findById(id);
         if (existingShowtime.isEmpty()) {
@@ -109,5 +117,11 @@ public class ShowtimeService {
         }
         logger.info("There is no overlap in theater: {}", theater);
         return false;
+    }
+
+    private void validateShowtime(ShowtimeRequestDTO requestDTO) {
+        if (requestDTO.getEndTime().isBefore(requestDTO.getStartTime())) {
+            throw new IllegalArgumentException("End time must be after start time");
+        }
     }
 }
