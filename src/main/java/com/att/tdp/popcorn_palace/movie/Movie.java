@@ -44,43 +44,24 @@ public class Movie {
     // Getters and Setters
     public Long getId() { return id; }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public Integer getDuration() {
-        return duration;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public Float getRating() {
-        return rating;
-    }
-
-    public Integer getReleaseYear() {
-        return releaseYear;
-    }
-
+    public String getTitle() { return title; }
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
+    public Integer getDuration() { return duration; }
     public void setDuration(Integer duration) {
         this.duration = duration;
     }
 
+    public String getGenre() { return genre; }
+    public void setGenre(String genre) { this.genre = genre; }
+
+    public Float getRating() { return rating; }
     public void setRating(Float rating) {
         this.rating = rating;
     }
 
-    public void setReleaseYear(Integer releaseYear) {
-        this.releaseYear = releaseYear;
-    }
+    public Integer getReleaseYear() { return releaseYear; }
+    public void setReleaseYear(Integer releaseYear) { this.releaseYear = releaseYear; }
 }
