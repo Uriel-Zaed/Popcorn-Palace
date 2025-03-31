@@ -20,3 +20,6 @@ spring:
       mode: always
       platform: postgres
 
+logging:
+  file:
+    name: logs/application.log
