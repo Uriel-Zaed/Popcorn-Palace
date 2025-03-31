@@ -46,6 +46,12 @@ public class MovieController {
         return ResponseEntity.ok(result);
     }
 
+    /**
+     * POST /movies/update/{movieTitle} update a movie by a title
+     *
+     * @param newMovie
+     * @param movieTitle
+     */
     @PostMapping("/update/{movieTitle}")
     public void updateMovie(@RequestBody Movie newMovie, @PathVariable String movieTitle) {
         logger.info("REST request to update movie: {}", movieTitle);

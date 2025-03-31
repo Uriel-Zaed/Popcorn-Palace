@@ -34,17 +34,6 @@ public class Movie {
         this.releaseYear = releaseYear;
     }
 
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "title='" + title + '\'' +
-                ", genre='" + genre + '\'' +
-                ", duration=" + duration +
-                ", rating=" + rating +
-                ", releaseYear=" + releaseYear +
-                '}';
-    }
-
     // Getters and Setters
     public Long getId() { return id; }
 
@@ -68,4 +57,16 @@ public class Movie {
 
     public Integer getReleaseYear() { return releaseYear; }
     public void setReleaseYear(Integer releaseYear) { this.releaseYear = releaseYear; }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", genre='" + genre + '\'' +
+                ", duration=" + duration +
+                ", rating=" + rating +
+                ", releaseYear=" + releaseYear +
+                '}';
+    }
 }

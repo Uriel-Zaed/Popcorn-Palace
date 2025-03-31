@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +67,7 @@ public class MovieService {
      * @throws ResourceAlreadyExistsException if trying to update title to one that already exists
      * @throws IllegalArgumentException if a field of movie not valid
      */
+    @Transactional
     public void updateMovie(String movieTitle, Movie newMovie) {
         logger.info("Updating movie with title: {}", movieTitle);
 

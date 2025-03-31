@@ -2,6 +2,9 @@ package com.att.tdp.popcorn_palace.showtime;
 
 import java.time.LocalDateTime;
 
+/**
+ * class that represent the showtime request from the api
+ */
 public class ShowtimeRequestDTO {
     private Long movieId;
     private String theater;
@@ -33,4 +36,15 @@ public class ShowtimeRequestDTO {
 
     public Double getPrice() { return price; }
     public void setPrice(Double price) { this.price = price; }
+
+    @Override
+    public String toString() {
+        return "ShowtimeRequestDTO{" +
+                "movieId=" + movieId +
+                ", theater='" + theater + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", price=" + price +
+                '}';
+    }
 }

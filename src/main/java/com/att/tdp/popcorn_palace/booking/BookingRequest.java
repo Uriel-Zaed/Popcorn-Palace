@@ -2,6 +2,9 @@ package com.att.tdp.popcorn_palace.booking;
 
 import java.util.UUID;
 
+/**
+ * A class to represent a booking request
+ */
 public class BookingRequest {
     private Long showtimeId;
     private Integer seatNumber;
@@ -18,7 +21,6 @@ public class BookingRequest {
     public Long getShowtimeId() {
         return showtimeId;
     }
-
     public void setShowtimeId(Long showtimeId) {
         this.showtimeId = showtimeId;
     }
@@ -26,7 +28,6 @@ public class BookingRequest {
     public Integer getSeatNumber() {
         return seatNumber;
     }
-
     public void setSeatNumber(Integer seatNumber) {
         this.seatNumber = seatNumber;
     }
@@ -34,7 +35,6 @@ public class BookingRequest {
     public UUID getUserId() {
         return userId;
     }
-
     public void setUserId(UUID userId) {
         this.userId = userId;
     }

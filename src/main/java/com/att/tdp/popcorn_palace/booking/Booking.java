@@ -1,10 +1,13 @@
 package com.att.tdp.popcorn_palace.booking;
 
-import com.att.tdp.popcorn_palace.movie.Movie;
 import com.att.tdp.popcorn_palace.showtime.Showtime;
 import jakarta.persistence.*;
 import java.util.UUID;
 
+/**
+ * Entity representing a booking in the Popcorn Palace system.
+ * Contains all relevant information about a movie.
+ */
 @Entity
 @Table(name = "Bookings")
 public class Booking {

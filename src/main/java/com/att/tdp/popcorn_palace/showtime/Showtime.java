@@ -7,6 +7,10 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * Entity representing a showtime in the Popcorn Palace system.
+ * Contains all relevant information about a showtime.
+ */
 @Entity
 @Table(name = "Showtimes",
         uniqueConstraints = @UniqueConstraint(columnNames = {"start_time", "theater"}))
@@ -81,5 +85,17 @@ public class Showtime {
     }
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Showtime{" +
+                "id=" + id +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", movie=" + movie +
+                ", theater='" + theater + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

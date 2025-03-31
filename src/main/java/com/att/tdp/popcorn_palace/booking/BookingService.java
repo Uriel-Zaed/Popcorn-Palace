@@ -2,7 +2,6 @@ package com.att.tdp.popcorn_palace.booking;
 
 import com.att.tdp.popcorn_palace.exception.ResourceNotFoundException;
 import com.att.tdp.popcorn_palace.exception.SeatAlreadyBookedException;
-import com.att.tdp.popcorn_palace.movie.MovieService;
 import com.att.tdp.popcorn_palace.showtime.Showtime;
 import com.att.tdp.popcorn_palace.showtime.ShowtimeRepository;
 import org.slf4j.Logger;
@@ -12,6 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+/**
+ * Service class that manages booking-related business operations.
+ * Handles CRUD operations for Booking entities with appropriate validations.
+ */
 @Service
 public class BookingService {
     private static final Logger logger = LoggerFactory.getLogger(BookingService.class);
@@ -24,6 +27,15 @@ public class BookingService {
         this.showtimeRepository = showtimeRepository;
     }
 
+    /**
+     *  Book a ticket by validating and adding to the database
+     *
+     * @param bookingRequest BookingRequest to represent the request
+     * @return BookingResponse that represent the response
+     * @throws ResourceNotFoundException if showtime wasn't found
+     * @throws IllegalArgumentException if the seat number was not positive number
+     * @throws SeatAlreadyBookedException if the seat already taken
+     */
     @Transactional
     public BookingResponse bookTicket(BookingRequest bookingRequest) {
         logger.info("Booking request: {}", bookingRequest);
