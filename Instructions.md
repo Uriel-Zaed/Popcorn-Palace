@@ -8,7 +8,7 @@ Before you begin, ensure you have the following installed on your system:
 
 - Java Development Kit (JDK) 21 or later
 - Maven 3.8+ 
-- Docker and Docker Compose (for running PostgreSQL)
+- Docker (for running PostgreSQL)
 - Git (for version control)
 
 ## Project Setup
@@ -42,7 +42,7 @@ The application uses PostgreSQL as its database, which can be easily set up usin
 
    You should see a running container for PostgreSQL.
 
-3. The database schema and initial data will be automatically created when you start the application for the first time, using the ROM and `data.sql` files in the resources directory.
+3. The database schema and initial data will be automatically created when you start the application for the first time, using the ORM and `data.sql` files in the resources directory.
 
 ## Building the Application
 
@@ -96,7 +96,10 @@ For testing, the application uses H2 in-memory database instead of PostgreSQL.
 
 ### Manual API Testing
 
-You can test the API endpoints using Postman or curl:
+1. You can use swagger at: http://localhost:8080/swagger-ui/index.html#/
+For test API endpoints and examine the API's schemas
+
+2. You can test the API endpoints using Postman or curl:
 
 #### Movie API Examples:
 
