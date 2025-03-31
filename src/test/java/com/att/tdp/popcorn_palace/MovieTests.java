@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -30,30 +31,6 @@ public class MovieTests {
 
     @Autowired
     private MovieRepository movieRepository;
-
-    @BeforeEach
-    void setupTestData() {
-        // Clear existing data
-        movieRepository.deleteAll();
-
-        // Create movies
-        Movie inception = createMovie("Inception", "Sci-Fi", 148, 8.8f, 2010);
-        Movie darkKnight = createMovie("The Dark Knight", "Action", 152, 9.0f, 2008);
-        // Add more movies as needed
-
-        List<Movie> movies = Arrays.asList(inception, darkKnight);
-        movieRepository.saveAll(movies);
-    }
-
-    private Movie createMovie(String title, String genre, int duration, float rating, int releaseYear) {
-        Movie movie = new Movie();
-        movie.setTitle(title);
-        movie.setGenre(genre);
-        movie.setDuration(duration);
-        movie.setRating(rating);
-        movie.setReleaseYear(releaseYear);
-        return movie;
-    }
 
 
     @Test
@@ -89,15 +66,15 @@ public class MovieTests {
     @Test
     public void testUpdateMovie() throws Exception {
         // Update an existing movie
-        Movie updatedMovie = new Movie("Inception", 148, "Sci-Fi/Thriller", 9.0f, 2010);
+        Movie updatedMovie = new Movie("Fight Club", 148, "Sci-Fi/Thriller", 9.0f, 2010);
 
-        mockMvc.perform(post("/movies/update/Inception")
+        mockMvc.perform(post("/movies/update/Fight Club")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedMovie)))
                 .andExpect(status().isOk());
 
         // Verify movie was updated in database
-        Movie movie = movieRepository.findByTitle("Inception").orElseThrow();
+        Movie movie = movieRepository.findByTitle("Fight Club").orElseThrow();
         assertEquals("Sci-Fi/Thriller", movie.getGenre());
         assertEquals(9.0f, movie.getRating());
     }
@@ -105,7 +82,7 @@ public class MovieTests {
     @Test
     public void testAddDuplicateMovie() throws Exception {
         // Try to add a movie with existing title
-        Movie duplicateMovie = new Movie("Inception", 130, "Sci-Fi", 8.5f, 2010);
+        Movie duplicateMovie = new Movie("Fight Club", 130, "Sci-Fi", 8.5f, 2010);
 
         mockMvc.perform(post("/movies")
                         .contentType(MediaType.APPLICATION_JSON)

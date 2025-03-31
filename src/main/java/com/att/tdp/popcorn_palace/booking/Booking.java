@@ -1,5 +1,7 @@
 package com.att.tdp.popcorn_palace.booking;
 
+import com.att.tdp.popcorn_palace.movie.Movie;
+import com.att.tdp.popcorn_palace.showtime.Showtime;
 import jakarta.persistence.*;
 import java.util.UUID;
 
@@ -15,8 +17,9 @@ public class Booking {
     @Column(nullable = false)
     private UUID userId;
 
-    @Column(nullable = false)
-    private Long showtimeId;
+    @JoinColumn(name = "showtime_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_showtime"), nullable = false)
+    @ManyToOne
+    private Showtime showtime;
 
     @Column(nullable = false)
     private Integer seatNumber;
@@ -24,42 +27,34 @@ public class Booking {
     // Constructors
     public Booking() {}
 
-    public Booking(UUID userId, Long showtimeId, Integer seatNumber) {
+    public Booking(UUID userId, Showtime showtime, Integer seatNumber) {
         this.userId = userId;
-        this.showtimeId = showtimeId;
+        this.showtime = showtime;
         this.seatNumber = seatNumber;
     }
 
     // Getters and Setters
-    public UUID getBookingId() {
-        return bookingId;
-    }
+    public UUID getBookingId() { return bookingId; }
+    public void setBookingId(UUID bookingId) { this.bookingId = bookingId; }
 
-    public void setBookingId(UUID bookingId) {
-        this.bookingId = bookingId;
-    }
+    public UUID getUserId() { return userId; }
+    public void setUserId(UUID userId) { this.userId = userId; }
 
-    public UUID getUserId() {
-        return userId;
-    }
+    public Showtime getShowtime() { return showtime; }
+    public void setShowtime(Showtime showtime) { this.showtime = showtime; }
 
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
+    public Long getShowtimeId() { return showtime.getId(); }
 
-    public Long getShowtimeId() {
-        return showtimeId;
-    }
+    public Integer getSeatNumber() { return seatNumber; }
+    public void setSeatNumber(Integer seatNumber) { this.seatNumber = seatNumber; }
 
-    public void setShowtimeId(Long showtimeId) {
-        this.showtimeId = showtimeId;
-    }
-
-    public Integer getSeatNumber() {
-        return seatNumber;
-    }
-
-    public void setSeatNumber(Integer seatNumber) {
-        this.seatNumber = seatNumber;
+    @Override
+    public String toString() {
+        return "{" +
+                "bookingId=" + bookingId +
+                ", userId=" + userId +
+                ", showtime=" + showtime +
+                ", seatNumber=" + seatNumber +
+                '}';
     }
 }

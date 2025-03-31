@@ -2,6 +2,7 @@ package com.att.tdp.popcorn_palace.movie;
 
 import com.att.tdp.popcorn_palace.exception.ResourceAlreadyExistsException;
 import com.att.tdp.popcorn_palace.exception.ResourceNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service

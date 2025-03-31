@@ -11,7 +11,7 @@ spring:
     driverClassName: org.h2.Driver
   sql:
     init:
-      mode: never
+      mode: embedded
       platform: mssql
       data-locations: classpath:/data.sql
   h2:

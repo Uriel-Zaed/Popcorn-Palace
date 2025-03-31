@@ -15,7 +15,6 @@ public class BookingResponse {
     public UUID getBookingId() {
         return bookingId;
     }
-
     public void setBookingId(UUID bookingId) {
         this.bookingId = bookingId;
     }

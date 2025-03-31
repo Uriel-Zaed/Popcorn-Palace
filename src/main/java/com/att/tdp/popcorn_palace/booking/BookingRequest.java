@@ -38,4 +38,13 @@ public class BookingRequest {
     public void setUserId(UUID userId) {
         this.userId = userId;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "showtimeId=" + showtimeId +
+                ", seatNumber=" + seatNumber +
+                ", userId=" + userId +
+                '}';
+    }
 }
