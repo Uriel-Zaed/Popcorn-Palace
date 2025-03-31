@@ -94,6 +94,7 @@ public class ShowtimeService {
             logger.error("Cannot delete. showtime not found with id: {}", id);
             throw new ResourceNotFoundException("Showtime not found with id: " + id);
         }
+
         showtimeRepository.deleteById(id);
         logger.info("Showtime deleted successfully: {}", id);
     }

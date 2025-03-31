@@ -2,6 +2,10 @@ package com.att.tdp.popcorn_palace.movie;
 
 import jakarta.persistence.*;
 
+/**
+ * Entity representing a movie in the Popcorn Palace system.
+ * Contains all relevant information about a movie.
+ */
 @Entity
 @Table(name = "Movies")
 public class Movie {
