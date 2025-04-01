@@ -56,14 +56,12 @@ public class ShowtimeService {
     public Showtime addShowtime(ShowtimeRequestDTO requestDTO) {
         validateShowtime(requestDTO);
 
-        if (hasOverlappingShowtimes(requestDTO.getStartTime(), requestDTO.getEndTime(), requestDTO.getTheater())) {
-            throw new ShowtimesOverlappingException("Overlapping showtime");  // Return an error if there are overlapping showtimes
-        }
         Optional<Movie> movie = movieRepository.findById(requestDTO.getMovieId());
         if (movie.isEmpty()) {
             logger.error("Movie {} not found", requestDTO.getMovieId());
             throw new ResourceNotFoundException("Movie " + requestDTO.getMovieId() + " not found");
         }
+
         Showtime showtime = new Showtime(movie.get(), requestDTO.getTheater(),
                 requestDTO.getStartTime(), requestDTO.getEndTime(), requestDTO.getPrice());
         Showtime showtimeResult = showtimeRepository.save(showtime);
@@ -91,9 +89,7 @@ public class ShowtimeService {
             logger.error("Showtime was not found with id: {}", id);
             throw new ResourceNotFoundException("Showtime was not found with id: " + id);
         }
-        if (hasOverlappingShowtimes(requestDTO.getStartTime(), requestDTO.getEndTime(), requestDTO.getTheater())) {
-            throw new ShowtimesOverlappingException("Overlapping showtime");
-        }
+
         Optional<Movie> movie = movieRepository.findById(requestDTO.getMovieId());
         if (movie.isEmpty()) {
             logger.error("Movie {} not found", requestDTO.getMovieId());
@@ -163,6 +159,17 @@ public class ShowtimeService {
     private void validateShowtime(ShowtimeRequestDTO requestDTO) {
         if (requestDTO.getEndTime().isBefore(requestDTO.getStartTime())) {
             throw new IllegalArgumentException("End time must be after start time");
+        }
+        if (requestDTO.getTheater() == null | requestDTO.getTheater().isEmpty()) {
+            logger.error("Showtime must have a theater");
+            throw new IllegalArgumentException("Showtime must have a theater");
+        }
+        if (requestDTO.getPrice() < 0) {
+            logger.error("Price must be greater than 0");
+            throw new IllegalArgumentException("Price must be greater than 0");
+        }
+        if (hasOverlappingShowtimes(requestDTO.getStartTime(), requestDTO.getEndTime(), requestDTO.getTheater())) {
+            throw new ShowtimesOverlappingException("Overlapping showtimes");  // Return an error if there are overlapping showtimes
         }
     }
 }

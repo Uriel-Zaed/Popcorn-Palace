@@ -47,7 +47,7 @@ public class BookingService {
         }
 
         if (bookingRequest.getSeatNumber() <= 0) {
-            logger.error("Seat number {} not valid", bookingRequest.getSeatNumber());
+            logger.error("Seat number {} has to be greater than 0", bookingRequest.getSeatNumber());
             throw new IllegalArgumentException("Seat number " + bookingRequest.getSeatNumber() + " not valid");
         }
 

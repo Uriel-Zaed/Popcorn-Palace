@@ -79,14 +79,15 @@ public class MovieService {
             throw new ResourceNotFoundException("Movie not found with title: " + movieTitle);
         }
         if (!movieTitle.equals(newMovie.getTitle())) {
-            existingMovie = repository.findByTitle(newMovie.getTitle());
-            if (existingMovie.isPresent()) {
+            Optional<Movie> testExistingMovie = repository.findByTitle(newMovie.getTitle());
+            if (testExistingMovie.isPresent()) {
                 logger.error("Cannot update movie. Title '{}' already in use", newMovie.getTitle());
                 throw new ResourceAlreadyExistsException("Movie with title '" + newMovie.getTitle() + "' already exists");
             }
         }
 
         Movie movie = existingMovie.get();
+        movie.setTitle(newMovie.getTitle());
         movie.setGenre(newMovie.getGenre());
         movie.setDuration(newMovie.getDuration());
         movie.setRating(newMovie.getRating());
