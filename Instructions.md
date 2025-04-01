@@ -29,10 +29,10 @@ The application uses PostgreSQL as its database, which can be easily set up usin
    ```
 
    This will start a PostgreSQL instance with the following configuration:
-    - Username: popcorn-palace
-    - Password: popcorn-palace
-    - Database name: popcorn-palace
-    - Port: 5432
+   - **Username**: `popcorn-palace`
+   - **Password**: `popcorn-palace`
+   - **Database name**: `popcorn-palace`
+   - **Port**: `5432`
    
 
 2. Verify the database is running:
@@ -81,18 +81,21 @@ The project includes automated tests to verify its functionality:
    ```
 
 2. Run specific test classes:
+   <br>
+   <br>
+   For test Showtimes API:
    ```bash
    mvn test -Dtest=ShowtimeTests
    ```
-    or 
+   For test Movies API:
     ```bash
    mvn test -Dtest=MovieTests
    ```
-   or
-3. ```bash
+   For test Bookings API:
+   ```bash
    mvn test -Dtest=BookingTests
    ```
-For testing, the application uses H2 in-memory database instead of PostgreSQL.
+Note that for testing, the application uses H2 in-memory database instead of PostgreSQL.
 
 ### Manual API Testing
 
@@ -182,26 +185,31 @@ For test API endpoints and examine the API's schemas
 
 ## API Documentation
 
-### Movie API
+### Movies  APIs
 
-| API Description | Endpoint | Method | Request Body | Response Status | Response Body |
-|-----------------|----------|--------|-------------|-----------------|---------------|
-| Get all movies | `/movies/all` | GET | - | 200 OK | Array of movie objects |
-| Add a movie | `/movies` | POST | Movie object | 200 OK | Created movie object with ID |
-| Update a movie | `/movies/update/{movieTitle}` | POST | Updated movie object | 200 OK | - |
-| Delete a movie | `/movies/{movieTitle}` | DELETE | - | 200 OK | - |
+| API Description           | Endpoint               | Request Body                          | Response Status | Response Body |
+|---------------------------|------------------------|---------------------------------------|-----------------|---------------|
+| Get all movies | GET /movies/all | | 200 OK | [ { "id": 12345, "title": "Sample Movie Title 1", "genre": "Action", "duration": 120, "rating": 8.7, "releaseYear": 2025 }, { "id": 67890, "title": "Sample Movie Title 2", "genre": "Comedy", "duration": 90, "rating": 7.5, "releaseYear": 2024 } ] |
+| Add a movie | POST /movies | { "title": "Sample Movie Title", "genre": "Action", "duration": 120, "rating": 8.7, "releaseYear": 2025 } | 200 OK | { "id": 1, "title": "Sample Movie Title", "genre": "Action", "duration": 120, "rating": 8.7, "releaseYear": 2025 }|
+| Update a movie | POST /movies/update/{movieTitle} | { "title": "Sample Movie Title", "genre": "Action", "duration": 120, "rating": 8.7, "releaseYear": 2025 } | 200 OK | |
+| DELETE /movies/{movieTitle} | | 200 OK | |
 
-### Showtime API
+### Showtimes APIs
 
-| API Description | Endpoint | Method | Request Body | Response Status | Response Body |
-|-----------------|----------|--------|-------------|-----------------|---------------|
-| Get showtime by ID | `/showtimes/{showtimeId}` | GET | - | 200 OK | Showtime object |
-| Add a showtime | `/showtimes` | POST | Showtime request object | 200 OK | Created showtime object with ID |
-| Update a showtime | `/showtimes/update/{showtimeId}` | POST | Updated showtime request object | 200 OK | - |
-| Delete a showtime | `/showtimes/{showtimeId}` | DELETE | - | 200 OK | - |
+| API Description            | Endpoint                           | Request Body                                                                                                                                      | Response Status | Response Body                                                                                                                                                                                                                                                                   |
+|----------------------------|------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Get showtime by ID | GET /showtimes/{showtimeId} |                                                                                                                                                   | 200 OK | { "id": 1, "price":50.2, "movieId": 1, "theater": "Sample Theater", "startTime": "2025-02-14T11:47:46.125405Z", "endTime": "2025-02-14T14:47:46.125405Z" }                                                                                                                      | | Delete a restaurant        | DELETE /restaurants/{id}           |                                                                              | 204 No Content  |                                                                                                        |
+| Add a showtime | POST /showtimes | { "movieId": 1, "price":20.2, "theater": "Sample Theater", "startTime": "2025-02-14T11:47:46.125405Z", "endTime": "2025-02-14T14:47:46.125405Z" } | 200 OK | { "id": 1, "price":50.2,"movieId": 1, "theater": "Sample Theater", "startTime": "2025-02-14T11:47:46.125405Z", "endTime": "2025-02-14T14:47:46.125405Z" }                                                                                                                                    |
+| Update a showtime | POST /showtimes/update/{showtimeId}| { "movieId": 1, "price":50.2, "theater": "Sample Theater", "startTime": "2025-02-14T11:47:46.125405Z", "endTime": "2025-02-14T14:47:46.125405Z" } | 200 OK |                                                                                                                                                                                                                                                                                 |
+| Delete a showtime | DELETE /showtimes/{showtimeId} |                                                                                                                                                   | 200 OK |                                                                                                                                                                                                                                                                                 |
 
-### Booking API
 
-| API Description | Endpoint | Method | Request Body | Response Status | Response Body |
-|-----------------|----------|--------|-------------|-----------------|---------------|
-| Book a ticket | `/bookings` | POST | Booking request object | 200 OK | Booking confirmation with ID |
+
+
+
+### bookings APIs
+
+| API Description           | Endpoint       | Request Body                                     | Response Status | Response Body                                                                                                                                          |
+|---------------------------|----------------|--------------------------------------------------|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Book a ticket | POST /bookings | { "showtimeId": 1, "seatNumber": 15 , userId:"84438967-f68f-4fa0-b620-0f08217e76af"} | 200 OK | { "bookingId":"d1a6423b-4469-4b00-8c5f-e3cfc42eacae" }                                                                                                 |
+
